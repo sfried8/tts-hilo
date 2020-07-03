@@ -1,56 +1,48 @@
-GUIDS = {die_1='44749d',
-         die_2='c71e9c',
-         die_3='038ee6',
-         die_4='fa5ce3',
-         die_5='d9264e',
-         hilo_die='edfa12',
-         sum_label = 'bb5163',
-         score_title = '068066',
-         score_lable = '0c5f87',
-         score_type = 'a240dd',
-         rack = '249680',
-         multi_rack = '0d9a9e',
-         counter_red = '76f313',
-         counter_orange = 'b5ef21',
-         counter_yellow = 'aee02b',
-         counter_green = 'cb49ed',
-         counter_blue = 'ee0d3c',
-         counter_purple = '1770b7',
-         counter_pink = '31648a',
-         counter_white = 'db69bb',
-         save_score_zone = '8704a0',
-     }
+GUIDS = {
+    die_1 = '44749d',
+    die_2 = 'c71e9c',
+    die_3 = '038ee6',
+    die_4 = 'fa5ce3',
+    die_5 = 'd9264e',
+    hilo_die = 'edfa12',
+    sum_label = 'bb5163',
+    score_title = '068066',
+    score_lable = '0c5f87',
+    score_type = 'a240dd',
+    rack = '249680',
+    multi_rack = '0d9a9e',
+    counter_red = '76f313',
+    counter_orange = 'b5ef21',
+    counter_yellow = 'aee02b',
+    counter_green = 'cb49ed',
+    counter_blue = 'ee0d3c',
+    counter_purple = '1770b7',
+    counter_pink = '31648a',
+    counter_white = 'db69bb',
+    save_score_zone = '8704a0'
+}
 
 BANK_SNAP_POINTS = {
-    {-12.5,5,0.2},
-    {-11,5,0.2},
-    {-9.5,5,0.2},
-    {-8,5,0.2},
-    {-6.5,5,0.2},
+    {-12.5, 5, 0.2}, {-11, 5, 0.2}, {-9.5, 5, 0.2}, {-8, 5, 0.2}, {-6.5, 5, 0.2}
 }
 RACK_SNAP_POINTS = {
-    {-3.6,5,0.13},
-    {-2.1,5,0.13},
-    {-0.6,5,0.13},
-    {0.84,5,0.13},
-    {2.29,5,0.13},
+    {-3.6, 5, 0.13}, {-2.1, 5, 0.13}, {-0.6, 5, 0.13}, {0.84, 5, 0.13},
+    {2.29, 5, 0.13}
 }
-HILO_SNAP_POINT = {
-    3.86,5,0.13
-}
+HILO_SNAP_POINT = {3.86, 5, 0.13}
 VALUE_TO_ROTATION = {
-    [1] = {270,0,0},
-    [2] = {0,0,0},
-    [3] = {0,0,270},
-    [4] = {0,0,90},
-    [5] = {0,0,180},
-    [6] = {90,0,0},
-    ["1 HI"] = {270,0,0},
-    ["2 LO"] = {0,0,0},
-    ["3 LO"] = {0,0,270},
-    ["2 HI"] = {0,0,90},
-    ["3 HI"] = {0,0,180},
-    ["1 LO"] = {90,0,0},
+    [1] = {270, 0, 0},
+    [2] = {0, 0, 0},
+    [3] = {0, 0, 270},
+    [4] = {0, 0, 90},
+    [5] = {0, 0, 180},
+    [6] = {90, 0, 0},
+    ["1 HI"] = {270, 0, 0},
+    ["2 LO"] = {0, 0, 0},
+    ["3 LO"] = {0, 0, 270},
+    ["2 HI"] = {0, 0, 90},
+    ["3 HI"] = {0, 0, 180},
+    ["1 LO"] = {90, 0, 0}
 }
 
 --[[ The onLoad event is called after the game save finishes loading. --]]
@@ -58,17 +50,35 @@ function onLoad(save_state_str)
     Turns.type = 1
     Turns.enable = true
     hilo_die = getObjectFromGUID(GUIDS.hilo_die)
-    hi_card = {[30]=10, [29]=8, [28]=7, [27]=6, [26]=5,[25]=4, [24]=3, [23]=2}
-    lo_card = {[5]=10, [6]=8, [7]=7, [8]=6, [9]=5,[10]=4, [11]=3, [12]=2}
+    hi_card = {
+        [30] = 10,
+        [29] = 8,
+        [28] = 7,
+        [27] = 6,
+        [26] = 5,
+        [25] = 4,
+        [24] = 3,
+        [23] = 2
+    }
+    lo_card = {
+        [5] = 10,
+        [6] = 8,
+        [7] = 7,
+        [8] = 6,
+        [9] = 5,
+        [10] = 4,
+        [11] = 3,
+        [12] = 2
+    }
     sum_label = getObjectFromGUID(GUIDS.sum_label)
     score_title = getObjectFromGUID(GUIDS.score_title)
     score_lable = getObjectFromGUID(GUIDS.score_lable)
     score_type = getObjectFromGUID(GUIDS.score_type)
-    die_1= getObjectFromGUID(GUIDS.die_1)
-    die_2= getObjectFromGUID(GUIDS.die_2)
-    die_3= getObjectFromGUID(GUIDS.die_3)
-    die_4= getObjectFromGUID(GUIDS.die_4)
-    die_5= getObjectFromGUID(GUIDS.die_5)
+    die_1 = getObjectFromGUID(GUIDS.die_1)
+    die_2 = getObjectFromGUID(GUIDS.die_2)
+    die_3 = getObjectFromGUID(GUIDS.die_3)
+    die_4 = getObjectFromGUID(GUIDS.die_4)
+    die_5 = getObjectFromGUID(GUIDS.die_5)
     rack = getObjectFromGUID(GUIDS.rack);
     multi_rack = getObjectFromGUID(GUIDS.multi_rack);
     counter_objects = {
@@ -96,105 +106,107 @@ function onLoad(save_state_str)
     if save_state_str ~= nil and save_state_str ~= "" then
         save_state = JSON.decode(save_state_str)
         if save_state["score"] == nil then
-            save_state = {["score"]=save_state,["turn"]=0}
+            save_state = {["score"] = save_state, ["turn"] = 0}
         end
     else
 
-        save_state = {["score"]={},["turn"]=0}
+        save_state = {["score"] = {}, ["turn"] = 0}
     end
 
     turn_number = save_state["turn"]
     score_history = save_state["score"]
-    for i,v in ipairs(getPlayerColors()) do
-        if score_history[v] == nil then score_history[v] = {}
+    for i, v in ipairs(getPlayerColors()) do
+        if score_history[v] == nil then score_history[v] = {} end
     end
-end
-rolling_die = {
-    [die_1]=false,
-    [die_2]=false,
-    [die_3]=false,
-    [die_4]=false,
-    [die_5]=false,
-}
-rolled_die = {
-[die_1]=false,
-[die_2]=false,
-[die_3]=false,
-[die_4]=false,
-[die_5]=false,
-}
+    rolling_die = {
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
+    rolled_die = {
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
     updateScoreUI()
 end
 function onSave()
-    return JSON.encode({["score"]=score_history,["turn"]=turn_number})
+    local save_state = JSON.encode({["score"] = score_history, ["turn"] = turn_number})
+    return save_state
 end
 function createSaveScoreButton()
     params = {
         click_function = "save_score",
         function_owner = self,
-        label          = "Save Score",
-        position = {-8.6/save_score_zone.getScale()[1],0.0,0.0},
-    height = 500,
-    width = 2700,
-    font_size = 350,
-    rotation = {0.0, 90.0, 0.0},
-    scale = {1.0/save_score_zone.getScale()[3],1.0,1.0/save_score_zone.getScale()[1]},
-        color          = {0.5, 0.5, 0.5},
-        font_color     = {1, 1, 1},
-        tooltip        = "Add result to current player's score",
+        label = "Save Score",
+        position = {-8.6 / save_score_zone.getScale()[1], 0.0, 0.0},
+        height = 500,
+        width = 2700,
+        font_size = 350,
+        rotation = {0.0, 90.0, 0.0},
+        scale = {
+            1.0 / save_score_zone.getScale()[3], 1.0,
+            1.0 / save_score_zone.getScale()[1]
+        },
+        color = {0.5, 0.5, 0.5},
+        font_color = {1, 1, 1},
+        tooltip = "Add result to current player's score"
     }
     save_score_zone.createButton(params)
 end
 function onPlayerTurn(player_color)
     score_was_saved = false
     rolling_die = {
-        [die_1]=false,
-        [die_2]=false,
-        [die_3]=false,
-        [die_4]=false,
-        [die_5]=false,
-}
-rolled_die = {
-    [die_1]=false,
-    [die_2]=false,
-    [die_3]=false,
-    [die_4]=false,
-    [die_5]=false,
-}
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
+    rolled_die = {
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
     updateScoreUI()
     if score_history[Turns.turn_color][turn_number] ~= 0 then
-        turn_number = turn_number+ 1
-        for i,v in ipairs(getPlayerColors()) do
+        turn_number = turn_number + 1
+        for i, v in ipairs(getPlayerColors()) do
             score_history[v][turn_number] = 0
         end
     end
 end
 
-
-
 function autoPassTurn()
     local new_order = {}
     local player_colors = getPlayerColors()
-    for i=2,#Turns.order do
-        if table.contains(player_colors,Turns.order[i]) then
-            table.insert(new_order,Turns.order[i])
+    for i = 2, #Turns.order do
+        if table.contains(player_colors, Turns.order[i]) then
+            table.insert(new_order, Turns.order[i])
         end
     end
-    table.insert(new_order,Turns.turn_color)
+    table.insert(new_order, Turns.turn_color)
     Turns.enable = false
     Turns.order = new_order
     Turns.enable = true
 end
 
-function save_score(obj,color,alt_click)
+function save_score(obj, color, alt_click)
     if score_lable.getValue() ~= ' ' then
         local counter = counter_objects[Turns.turn_color].Counter
         counter.setValue(counter.getValue() + score)
         score_was_saved = true
         save_score_zone.clearButtons()
-        score_history[color][turn_number] = score_history[color][turn_number] + score
+        score_history[color][turn_number] =
+            score_history[color][turn_number] + score
         updateScoreUI()
--- autoPassTurn()
+        -- autoPassTurn()
     end
 end
 
@@ -207,28 +219,36 @@ function reset()
 end
 
 function try_reset()
-    Wait.frames(function()UI.setAttribute('ui_reset_score','text',"Reset Scores")
-    UI.setAttribute('ui_reset_score','onClick','try_reset') end,120)
-    UI.setAttribute('ui_reset_score','text',"Click again to reset")
-    UI.setAttribute('ui_reset_score','onClick','reset_scores')
+    Wait.frames(function()
+        UI.setAttribute('ui_reset_score', 'text', "Reset Scores")
+        UI.setAttribute('ui_reset_score', 'onClick', 'try_reset')
+    end, 120)
+    UI.setAttribute('ui_reset_score', 'text', "Click again to reset")
+    UI.setAttribute('ui_reset_score', 'onClick', 'reset_scores')
 end
 function reset_scores()
-score_history = {}
-updateScoreUI()
-UI.setAttribute('ui_reset_score','text',"Reset Scores")
-UI.setAttribute('ui_reset_score','onClick','try_reset')
+    turn_number = 0
+    score_history = {}
+    for i, v in ipairs(getPlayerColors()) do
+        score_history[v] = {}
+    end
+    updateScoreUI()
+    UI.setAttribute('ui_reset_score', 'text', "Reset Scores")
+    UI.setAttribute('ui_reset_score', 'onClick', 'try_reset')
+    onPlayerTurn()
 end
 --[[ The onUpdate event is called once per frame. --]]
 function calculateRackScore(zone, enter_object)
     if zone.guid == rack.guid then
         sum = 0
-        if enter_object ~= nil and enter_object.tag == 'Dice' and enter_object.guid ~= hilo_die.guid then
+        if enter_object ~= nil and enter_object.tag == 'Dice' and
+            enter_object.guid ~= hilo_die.guid then
             sum = enter_object.getValue()
         end
         racked_dice = zone.getObjects()
         for i, v in ipairs(racked_dice) do
             if v.tag == 'Dice' and v.guid ~= hilo_die.guid then
-                    sum = sum + v.getValue()
+                sum = sum + v.getValue()
             end
         end
         sum_label.TextTool.setValue(tostring(sum))
@@ -238,13 +258,14 @@ end
 function calculateTurnScore(zone, enter_object)
     if rack_size == 5 and multi_set == true then
         score = 0;
-        local straightTest = {false,false,false,false,false,false};
+        local straightTest = {false, false, false, false, false, false};
         local list = rack.getObjects();
         local hasDupe, hasStraight = false, false;
         local direction = string.sub(hilo_die.getRotationValue(), 3, 4);
-        local multiplier = tonumber(string.sub(hilo_die.getRotationValue(),1,1));
+        local multiplier = tonumber(
+                               string.sub(hilo_die.getRotationValue(), 1, 1));
         if sum == 20 or sum == 15 then
-            for i,v in ipairs(list) do
+            for i, v in ipairs(list) do
                 if isNumberDie(v) then
                     local item = straightTest[v.getRotationValue()]
                     if item == true then
@@ -254,32 +275,30 @@ function calculateTurnScore(zone, enter_object)
                     end
                 end
             end
-            if hasDupe == false then
-                hasStraight = true;
-            end
+            if hasDupe == false then hasStraight = true; end
         end
         if hasStraight == true then
             score = 10 * multiplier;
-            score_lable.TextTool.setValue(' '..score..' ');
+            score_lable.TextTool.setValue(' ' .. score .. ' ');
             getScoreType(score, true);
         elseif direction == 'HI' then
             if sum <= 22 then
                 score = multiplier;
-                score_lable.TextTool.setValue(' '..score..' ')
+                score_lable.TextTool.setValue(' ' .. score .. ' ')
                 getScoreType(score, false);
             else
                 score = hi_card[sum] * multiplier;
-                score_lable.TextTool.setValue(' '..score..' ');
+                score_lable.TextTool.setValue(' ' .. score .. ' ');
                 getScoreType(score, false);
             end
         else
             if sum >= 13 then
                 score = multiplier;
-                score_lable.TextTool.setValue(' '..score..' ')
+                score_lable.TextTool.setValue(' ' .. score .. ' ')
                 getScoreType(score, false);
             else
                 score = lo_card[sum] * multiplier;
-                score_lable.TextTool.setValue(' '..score..' ');
+                score_lable.TextTool.setValue(' ' .. score .. ' ');
                 getScoreType(score, false);
             end
         end
@@ -288,14 +307,12 @@ function calculateTurnScore(zone, enter_object)
 end
 
 function getScoreType(number, straightCheck)
-    if not score_was_saved then
-        createSaveScoreButton()
-    end
+    if not score_was_saved then createSaveScoreButton() end
     if straightCheck == true then
         if number == 30 then
-        score_type.TextTool.setValue(' !! ROYAL STRAIGHT !! ');
+            score_type.TextTool.setValue(' !! ROYAL STRAIGHT !! ');
         else
-        score_type.TextTool.setValue(' !! STRAIGHT !! ');
+            score_type.TextTool.setValue(' !! STRAIGHT !! ');
         end
     elseif number == 30 then
         score_type.TextTool.setValue(' !! PERFECT !! ');
@@ -313,7 +330,7 @@ function getScoreType(number, straightCheck)
 end
 
 function onObjectEnterScriptingZone(zone, enter_object)
-    --print('zone - '..zone.guid..', rack - '..rack.guid..'multirack -'..multi_rack.guid)
+    -- print('zone - '..zone.guid..', rack - '..rack.guid..'multirack -'..multi_rack.guid)
     if zone.guid == rack.guid and enter_object.guid ~= hilo_die.guid then
         rack_size = rack_size + 1;
         calculateRackScore(zone, enter_object)
@@ -335,43 +352,36 @@ function onObjectLeaveScriptingZone(zone, leave_object)
 end
 
 function addBonusPoints(num_points)
-    score_history[Turns.turn_color][turn_number] = score_history[Turns.turn_color][turn_number] + num_points
+    score_history[Turns.turn_color][turn_number] =
+        score_history[Turns.turn_color][turn_number] + num_points
     updateScoreUI()
 end
 
 function checkFirstRoll()
-    local rollWatch = function() return rolled_die[die_1] and
-    rolled_die[die_2] and
-    rolled_die[die_3] and
-    rolled_die[die_4] and
-    rolled_die[die_5]  end
+    local rollWatch = function()
+        return rolled_die[die_1] and rolled_die[die_2] and rolled_die[die_3] and
+                   rolled_die[die_4] and rolled_die[die_5]
+    end
     local rollEnd = function()
-        if not is_rolling then
-            return
-        end
+        if not is_rolling then return end
         local val1 = die_1.getRotationValue()
         local val2 = die_2.getRotationValue()
         local val3 = die_3.getRotationValue()
         local val4 = die_4.getRotationValue()
         local val5 = die_5.getRotationValue()
-                print(val1)
+        print(val1)
         print(val2)
         print(val3)
         print(val4)
         print(val5)
-        if val2 == val1 and
-           val3 == val1 and
-           val4 == val1 and
-           val5 == val1 then
+        if val2 == val1 and val3 == val1 and val4 == val1 and val5 == val1 then
 
             broadcastToAll("ROYAL FLUSH! +10 points and roll again!")
             addBonusPoints(10)
-        elseif (val1 == 3 or val1 == 4) and
-               (val2 == 3 or val2 == 4) and
-               (val3 == 3 or val3 == 4) and
-               (val4 == 3 or val4 == 4) and
-               (val5 == 3 or val5 == 4) then
-            broadcastToAll("GOLDEN TURTLE",{r=0.83,g=0.68,b=0.21})
+        elseif (val1 == 3 or val1 == 4) and (val2 == 3 or val2 == 4) and
+            (val3 == 3 or val3 == 4) and (val4 == 3 or val4 == 4) and
+            (val5 == 3 or val5 == 4) then
+            broadcastToAll("GOLDEN TURTLE", {r = 0.83, g = 0.68, b = 0.21})
 
         end
 
@@ -381,22 +391,13 @@ function checkFirstRoll()
 end
 
 function onRoll(die_object)
-    if rolling_die[die_object] or rolled_die[die_object] then
-        return
-    end
+    if rolling_die[die_object] or rolled_die[die_object] then return end
     rolling_die[die_object] = true
     is_rolling = true
-    if rolling_die[die_1] and
-    rolling_die[die_2] and
-    rolling_die[die_3] and
-    rolling_die[die_4] and
-    rolling_die[die_5] then
-        checkFirstRoll()
-    end
+    if rolling_die[die_1] and rolling_die[die_2] and rolling_die[die_3] and
+        rolling_die[die_4] and rolling_die[die_5] then checkFirstRoll() end
 
-    local rollWatch = function()
-        return not is_rolling or die_object.resting
-    end
+    local rollWatch = function() return not is_rolling or die_object.resting end
     local rollEnd = function()
         if is_rolling then
             rolling_die[die_object] = false
@@ -407,77 +408,76 @@ function onRoll(die_object)
 end
 
 function onObjectRandomize(obj)
-    if obj.guid ~= GUIDS.hilo_die then
-        onRoll(obj)
-    end
+    if obj.guid ~= GUIDS.hilo_die then onRoll(obj) end
 end
-function onObjectPickUp(picked_up_object,player_color)
+function onObjectPickUp(picked_up_object, player_color)
     is_rolling = false
     num_rolling_die = 0
-    --print(player_color.getPosition())
+    -- print(player_color.getPosition())
 end
 function isNumberDie(object)
-    return object == die_1 or object == die_2 or object == die_3 or object == die_4 or object == die_5
+    return object == die_1 or object == die_2 or object == die_3 or object ==
+               die_4 or object == die_5
 end
 function onScriptingButtonUp(index, player_color)
-    if index ~= 1 and index ~= 2 then
-        return
-    end
+    if index ~= 1 and index ~= 2 then return end
     local player = Player[player_color]
     local hover = player.getHoverObject()
-    if (not isNumberDie(hover) and hover~=hilo_die) or not hover.resting then
+    if (not isNumberDie(hover) and hover ~= hilo_die) or not hover.resting then
         return
     end
     if index == 1 then
-        if hover~=hilo_die then
+        if hover ~= hilo_die then
 
-        hover.setPositionSmooth(findEmptyBankPoint(hover.getPosition()),false,true)
-        hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],false,true)
-    end
-    elseif hover==hilo_die then
-        hover.setPositionSmooth(HILO_SNAP_POINT,false,true)
-        hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],false,true)
+            hover.setPositionSmooth(findEmptyBankPoint(hover.getPosition()),
+                                    false, true)
+            hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],
+                                    false, true)
+        end
+    elseif hover == hilo_die then
+        hover.setPositionSmooth(HILO_SNAP_POINT, false, true)
+        hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],
+                                false, true)
     else
 
-        hover.setPositionSmooth(findEmptyRackPoint(hover.getPosition()),false,true)
-        hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],false,true)
+        hover.setPositionSmooth(findEmptyRackPoint(hover.getPosition()), false,
+                                true)
+        hover.setRotationSmooth(VALUE_TO_ROTATION[hover.getRotationValue()],
+                                false, true)
     end
 end
 
 function findEmptyBankPoint(default_position)
-    return findEmptyPoint(default_position,BANK_SNAP_POINTS)
+    return findEmptyPoint(default_position, BANK_SNAP_POINTS)
 end
 function findEmptyRackPoint(default_position)
     return findEmptyPoint(default_position, RACK_SNAP_POINTS)
 end
-function findEmptyPoint(default_position,snap_points)
+function findEmptyPoint(default_position, snap_points)
 
     local dice_positions = {
-        die_1.getPosition(),
-        die_2.getPosition(),
-        die_3.getPosition(),
-        die_4.getPosition(),
-        die_5.getPosition()
+        die_1.getPosition(), die_2.getPosition(), die_3.getPosition(),
+        die_4.getPosition(), die_5.getPosition()
     }
-    for i=1,5 do
-        if isSnapPointEmpty(snap_points[i],dice_positions) then
+    for i = 1, 5 do
+        if isSnapPointEmpty(snap_points[i], dice_positions) then
             return snap_points[i]
         end
 
     end
     return default_position
 end
-function isSnapPointEmpty(snap_point,dice_positions)
-    for i=1,5 do
-        if isUnderSnapPoint(snap_point,dice_positions[i]) then
+function isSnapPointEmpty(snap_point, dice_positions)
+    for i = 1, 5 do
+        if isUnderSnapPoint(snap_point, dice_positions[i]) then
             return false
         end
     end
     return true
 end
 
-function isUnderSnapPoint(snap_point,die_position)
+function isUnderSnapPoint(snap_point, die_position)
 
-
-    return math.abs(snap_point[1]-die_position[1]) <=0.5 and math.abs(snap_point[3]-die_position[3]) <=0.5
+    return math.abs(snap_point[1] - die_position[1]) <= 0.5 and
+               math.abs(snap_point[3] - die_position[3]) <= 0.5
 end
