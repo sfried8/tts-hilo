@@ -33,14 +33,13 @@ function update_ui_visibility()
     else
         UI.setAttribute('ui_show_ui','active',false)
     end
-    print(UI.getAttribute('ui_show_ui','visibility'))
 end
 function updateScoreUI()
     local playerList = Player.getPlayers()
     local numTurns = getNumTurns()
 
     local score_xml = [[
-    <Panel id="ui_panel" width="]].. tostring(100*#playerList) ..[[" height="]].. tostring(300 + math.max(numTurns-4,0)*60).. [[" rectAlignment="LowerRight"  padding="5 5 20 5" color="#cfccdeee">
+    <Panel id="ui_panel" height="]].. tostring(math.max(60*#playerList,250)) ..[[" width="]].. tostring(600 + math.max(numTurns-4,0)*60).. [[" rectAlignment="LowerRight"  padding="5 5 20 5" color="#cfccdeee">
     <TableLayout>
     <Row preferredHeight="44">
     <Text fontSize="24" >Score</Text>
@@ -48,9 +47,11 @@ function updateScoreUI()
     <Row>
     <Cell dontUseTableCellBackground="true" >
     </Cell>
+    <Cell dontUseTableCellBackground="true" >
+    </Cell>
     ]]
     local footer = [[<Row preferredHeight="50">]]..
-    string.rep("<Cell dontUseTableCellBackground=\"true\"></Cell>",#playerList)..
+    string.rep("<Cell dontUseTableCellBackground=\"true\"></Cell>",numTurns+2)..
     [[
     <Cell dontUseTableCellBackground="true">
     <Button id="ui_reset_score" onClick="try_reset">Reset Scores</Button>
@@ -58,34 +59,22 @@ function updateScoreUI()
 
     </Panel>
     ]]
-
-    for i, playerReference in ipairs(playerList) do
-        score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\" color=\""..playerReference.color.."\">" .. playerReference.steam_name .. "</Text></Cell>"
+    for i=1,numTurns do
+        score_xml = score_xml .. "<Cell><Text>Round " .. tostring(i) .. "</Text></Cell>"
     end
-    score_xml = score_xml .. "</Row>"
-    for turn=1,numTurns do
-        score_xml =  score_xml .. "<Row><Cell><Text>Round "..tostring(turn).."</Text></Cell>"
-        for i, playerReference in ipairs(playerList) do
-            local s = nil
-            if score_history[playerReference.color] ~= nil then
-                s = score_history[playerReference.color][turn]
-            end
-            if s == nil then s = "" else s = tostring(s) end
-            score_xml = score_xml .. "<Cell><Text>" .. s .. "</Text></Cell>"
-        end
-        score_xml = score_xml .. "</Row>"
-    end
-    local sum_row = "<Row><Cell><Text fontStyle=\"Bold\">Total</Text></Cell>"
+    score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\">Total</Text></Cell></Row>"
     for i, playerReference in ipairs(playerList) do
-        local s = nil
         if score_history[playerReference.color] ~= nil then
-            s = sumList(score_history[playerReference.color])
+            score_xml = score_xml .. "<Row><Cell columnSpan=\"2\"><Text fontStyle=\"Bold\" color=\""..playerReference.color.."\">" .. playerReference.steam_name .. "</Text></Cell>"
+                        
+            for i=1,numTurns do
+                score_xml = score_xml .. "<Cell><Text>" .. tostring(score_history[playerReference.color][i]) .. "</Text></Cell>"
+            end
+            score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\">" .. tostring(sumList(score_history[playerReference.color])) .. "</Text></Cell></Row>"
         end
-        if s == nil then s = "0" else s = tostring(s) end
-        sum_row = sum_row .. "<Cell><Text fontStyle=\"Bold\">" .. s .. "</Text></Cell>"
     end
-    sum_row = sum_row .. "</Row>"
-    score_xml = score_xml .. sum_row .. footer
+
+    score_xml = score_xml .. footer
     UI.setXml(score_xml)
     -- update_ui_visibility()
 end
