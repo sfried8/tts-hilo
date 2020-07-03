@@ -1,0 +1,96 @@
+
+function getNumTurns()
+    local numTurns = 0
+    for k, player_score in pairs(score_history) do
+        if #player_score > numTurns then numTurns = #player_score end
+    end
+    return numTurns
+end
+players_who_hid_ui_set = {}
+function show_ui_clicked(player)
+    players_who_hid_ui_set[player.color] = false
+    update_ui_visibility()
+end
+function hide_ui_clicked(player)
+    players_who_hid_ui_set[player.color] = true
+    update_ui_visibility()
+
+end
+function update_ui_visibility()
+    local players_viewing_ui = {}
+    local players_who_hid_ui = {}
+    for i,v in ipairs(Player.getPlayers()) do
+        if players_who_hid_ui_set[v.color] then table.insert(players_who_hid_ui,v.color) else table.insert(players_viewing_ui,v.color) end
+    end
+    if #players_viewing_ui > 0 then
+        UI.setAttribute('ui_panel','visibility',table.concat(players_viewing_ui,'|'))
+    else
+        UI.setAttribute('ui_panel','active',false)
+    end
+    if #players_who_hid_ui > 0 then
+        UI.setAttribute('ui_show_ui','active',true)
+        UI.setAttribute('ui_show_ui','visibility',table.concat(players_who_hid_ui,'|'))
+    else
+        UI.setAttribute('ui_show_ui','active',false)
+    end
+    print(UI.getAttribute('ui_show_ui','visibility'))
+end
+function updateScoreUI()
+    local playerList = Player.getPlayers()
+    local numTurns = getNumTurns()
+
+    local score_xml = [[
+    <Panel id="ui_panel" width="]].. tostring(100*#playerList) ..[[" height="]].. tostring(300 + math.max(numTurns-4,0)*60).. [[" rectAlignment="LowerRight"  padding="5 5 20 5" color="#cfccdeee">
+    <TableLayout>
+    <Row preferredHeight="44">
+    <Text fontSize="24" >Score</Text>
+    </Row>
+    <Row>
+    <Cell dontUseTableCellBackground="true" >
+    </Cell>
+    ]]
+    local footer = [[<Row preferredHeight="50">]]..
+    string.rep("<Cell dontUseTableCellBackground=\"true\"></Cell>",#playerList)..
+    [[
+    <Cell dontUseTableCellBackground="true">
+    <Button id="ui_reset_score" onClick="try_reset">Reset Scores</Button>
+    </Cell></Row></TableLayout>
+
+    </Panel>
+    ]]
+
+    for i, playerReference in ipairs(playerList) do
+        score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\" color=\""..playerReference.color.."\">" .. playerReference.steam_name .. "</Text></Cell>"
+    end
+    score_xml = score_xml .. "</Row>"
+    for turn=1,numTurns do
+        score_xml =  score_xml .. "<Row><Cell><Text>Round "..tostring(turn).."</Text></Cell>"
+        for i, playerReference in ipairs(playerList) do
+            local s = nil
+            if score_history[playerReference.color] ~= nil then
+                s = score_history[playerReference.color][turn]
+            end
+            if s == nil then s = "" else s = tostring(s) end
+            score_xml = score_xml .. "<Cell><Text>" .. s .. "</Text></Cell>"
+        end
+        score_xml = score_xml .. "</Row>"
+    end
+    local sum_row = "<Row><Cell><Text fontStyle=\"Bold\">Total</Text></Cell>"
+    for i, playerReference in ipairs(playerList) do
+        local s = nil
+        if score_history[playerReference.color] ~= nil then
+            s = sumList(score_history[playerReference.color])
+        end
+        if s == nil then s = "0" else s = tostring(s) end
+        sum_row = sum_row .. "<Cell><Text fontStyle=\"Bold\">" .. s .. "</Text></Cell>"
+    end
+    sum_row = sum_row .. "</Row>"
+    score_xml = score_xml .. sum_row .. footer
+    UI.setXml(score_xml)
+    -- update_ui_visibility()
+end
+
+function try_reset()
+    UI.setAttribute('ui_reset_score','text',"Click again to reset")
+    UI.setAttribute('ui_reset_score','onClick','reset_scores')
+end

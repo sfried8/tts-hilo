@@ -1,0 +1,20 @@
+function sumList(list)
+    local s = 0
+    for i,v in ipairs(list) do
+        s = s + v
+    end
+    return s
+end
+function table.contains(t, x)
+    for i,v in ipairs(t) do
+        if v == x then return true end
+    end
+    return false
+end
+function getPlayerColors()
+    local  colors = {}
+    for i,v in ipairs(Player.getPlayers()) do
+        table.insert(colors,v.color)
+    end
+    return colors
+end
