@@ -39,7 +39,7 @@ function updateScoreUI()
     local numTurns = getNumTurns()
 
     local score_xml = [[
-    <Panel id="ui_panel" height="]].. tostring(math.max(60*#playerList,250)) ..[[" width="]].. tostring(600 + math.max(numTurns-4,0)*60).. [[" rectAlignment="LowerRight"  padding="5 5 20 5" color="#cfccdeee">
+    <Panel id="ui_panel" height="]].. tostring(math.max(60*#playerList,250)) ..[[" width="]].. tostring(600 + math.max(numTurns-4,0)*60).. [[" rectAlignment="LowerRight"  padding="5 5 20 5" color="#cfccdeaa">
     <TableLayout>
     <Row preferredHeight="44">
     <Text fontSize="24" >Score</Text>
@@ -62,10 +62,10 @@ function updateScoreUI()
     for i=1,numTurns do
         score_xml = score_xml .. "<Cell><Text>Round " .. tostring(i) .. "</Text></Cell>"
     end
-    score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\">Total</Text></Cell></Row>"
+    score_xml = score_xml .. "<Cell><Text fontStyle=\"Bold\" >Total</Text></Cell></Row>"
     for i, playerReference in ipairs(playerList) do
         if score_history[playerReference.color] ~= nil then
-            score_xml = score_xml .. "<Row><Cell columnSpan=\"2\"><Text fontStyle=\"Bold\" color=\""..playerReference.color.."\">" .. playerReference.steam_name .. "</Text></Cell>"
+            score_xml = score_xml .. "<Row><Cell columnSpan=\"2\"><Text  fontSize=\"20\" color=\""..playerReference.color.."\">" .. playerReference.steam_name .. "</Text></Cell>"
                         
             for i=1,numTurns do
                 score_xml = score_xml .. "<Cell><Text>" .. tostring(score_history[playerReference.color][i]) .. "</Text></Cell>"

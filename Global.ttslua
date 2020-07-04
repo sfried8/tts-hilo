@@ -6,7 +6,6 @@ GUIDS = {
     die_5 = 'd9264e',
     hilo_die = 'edfa12',
     sum_label = 'bb5163',
-    score_title = '068066',
     score_lable = '0c5f87',
     score_type = 'a240dd',
     rack = '249680',
@@ -19,17 +18,20 @@ GUIDS = {
     counter_purple = '1770b7',
     counter_pink = '31648a',
     counter_white = 'db69bb',
+    counter_teal = '592b2f',
+    counter_brown = '6fafa9',
     save_score_zone = '8704a0'
 }
 
+
 BANK_SNAP_POINTS = {
-    {-12.5, 5, 0.2}, {-11, 5, 0.2}, {-9.5, 5, 0.2}, {-8, 5, 0.2}, {-6.5, 5, 0.2}
+    {-9.31, 5, 0.235}, {-7.73, 5, 0.235}, {-6.13, 5, 0.235}, {-4.53, 5, 0.235}, {-3.06, 5, 0.235}
 }
 RACK_SNAP_POINTS = {
-    {-3.6, 5, 0.13}, {-2.1, 5, 0.13}, {-0.6, 5, 0.13}, {0.84, 5, 0.13},
-    {2.29, 5, 0.13}
+    {1.6, 5, 0.18}, {3.11, 5, 0.18}, {4.68, 5, 0.18}, {6.24, 5, 0.18},
+    {7.78, 5, 0.18}
 }
-HILO_SNAP_POINT = {3.86, 5, 0.13}
+HILO_SNAP_POINT = {9.28, 5, 0.197}
 VALUE_TO_ROTATION = {
     [1] = {270, 0, 0},
     [2] = {0, 0, 0},
@@ -71,7 +73,6 @@ function onLoad(save_state_str)
         [12] = 2
     }
     sum_label = getObjectFromGUID(GUIDS.sum_label)
-    score_title = getObjectFromGUID(GUIDS.score_title)
     score_lable = getObjectFromGUID(GUIDS.score_lable)
     score_type = getObjectFromGUID(GUIDS.score_type)
     die_1 = getObjectFromGUID(GUIDS.die_1)
@@ -89,7 +90,9 @@ function onLoad(save_state_str)
         Blue = getObjectFromGUID(GUIDS.counter_blue),
         Purple = getObjectFromGUID(GUIDS.counter_purple),
         Pink = getObjectFromGUID(GUIDS.counter_pink),
-        White = getObjectFromGUID(GUIDS.counter_white)
+        White = getObjectFromGUID(GUIDS.counter_white),
+        Teal = getObjectFromGUID(GUIDS.counter_teal),
+        Brown = getObjectFromGUID(GUIDS.counter_brown),
     }
     save_score_zone = getObjectFromGUID(GUIDS.save_score_zone)
     is_rolling = false
@@ -99,8 +102,7 @@ function onLoad(save_state_str)
 
     rack.setName('ScoreRack');
     multi_rack.setName('HiLoRack');
-    score_title.TextTool.setFontColor("Green");
-    score_type.TextTool.setFontColor("Green");
+    score_type.TextTool.setFontColor({0.192, 0, 0.49});
     score_was_saved = false
     reset();
     if save_state_str ~= nil and save_state_str ~= "" then
@@ -133,6 +135,7 @@ function onLoad(save_state_str)
         [die_5] = false
     }
     updateScoreUI()
+
 end
 function onSave()
     local save_state = JSON.encode({["score"] = score_history, ["turn"] = turn_number})
@@ -212,7 +215,6 @@ end
 
 --[[ This function resets the text color and values of the score box ]]
 function reset()
-    score_title.TextTool.setFontColor("Grey");
     score_lable.TextTool.setValue(' ');
     score_type.TextTool.setValue(' ');
     save_score_zone.clearButtons()
