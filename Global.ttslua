@@ -232,6 +232,9 @@ function reset_scores()
     for i, v in ipairs(getPlayerColors()) do
         score_history[v] = {}
     end
+    for i, v in pairs(counter_objects) do
+        v.Counter.setValue(0)
+    end
     updateScoreUI()
     UI.setAttribute('ui_reset_score', 'text', "Reset Scores")
     UI.setAttribute('ui_reset_score', 'onClick', 'try_reset')
@@ -369,20 +372,28 @@ function checkFirstRoll()
         local val3 = die_3.getRotationValue()
         local val4 = die_4.getRotationValue()
         local val5 = die_5.getRotationValue()
-        print(val1)
-        print(val2)
-        print(val3)
-        print(val4)
-        print(val5)
         if val2 == val1 and val3 == val1 and val4 == val1 and val5 == val1 then
 
             broadcastToAll("ROYAL FLUSH! +10 points and roll again!")
             addBonusPoints(10)
+                rolled_die = {
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
         elseif (val1 == 3 or val1 == 4) and (val2 == 3 or val2 == 4) and
             (val3 == 3 or val3 == 4) and (val4 == 3 or val4 == 4) and
             (val5 == 3 or val5 == 4) then
-            broadcastToAll("GOLDEN TURTLE", {r = 0.83, g = 0.68, b = 0.21})
-
+            broadcastToAll("GOLDEN TURTLE! Roll again if you want", {r = 0.83, g = 0.68, b = 0.21})
+    rolled_die = {
+        [die_1] = false,
+        [die_2] = false,
+        [die_3] = false,
+        [die_4] = false,
+        [die_5] = false
+    }
         end
 
     end
@@ -414,6 +425,9 @@ function onObjectPickUp(picked_up_object, player_color)
     is_rolling = false
     num_rolling_die = 0
     -- print(player_color.getPosition())
+end
+function onObjectDrop(player_color, obj)
+    if obj.guid ~= hilo_die.guid then onRoll(obj) end
 end
 function isNumberDie(object)
     return object == die_1 or object == die_2 or object == die_3 or object ==
